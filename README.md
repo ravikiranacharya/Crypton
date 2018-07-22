@@ -30,8 +30,12 @@
   - [ ] Prices
   - [ ] Global Data
   - [ ] Multi-provider data scraping
+  
+- **Razor pages with CRUD operations for all models **
+- **API Controllers with CRUD operations for all models **
 - **API documentation**
 - **Model documentation**
+
 
 ## Todo
 

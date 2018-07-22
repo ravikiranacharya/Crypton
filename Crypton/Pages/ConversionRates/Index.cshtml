@@ -1,0 +1,48 @@
+﻿@page
+@model Crypton.Pages.ConversionRates.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ConversionRate[0].conversionRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConversionRate[0].conversionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConversionRate[0].sourceCurrency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConversionRate[0].targetCurrency)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ConversionRate) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.conversionRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.conversionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sourceCurrency.currencyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.targetCurrency.currencyCode)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.conversionID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.conversionID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.conversionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

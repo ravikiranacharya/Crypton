@@ -1,0 +1,54 @@
+﻿@page
+@model Crypton.Pages.Providers.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Provider[0].providerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provider[0].providerWebsite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provider[0].apiUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provider[0].apiKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provider[0].isEnabled)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Provider) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.providerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.providerWebsite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apiUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apiKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isEnabled)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.providerID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.providerID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.providerID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@page
+@model Crypton.Pages.Providers.EditModel
+
+<h4>Provider</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Provider.providerID" />
+            <div class="form-group">
+                <label asp-for="Provider.providerName" class="control-label"></label>
+                <input asp-for="Provider.providerName" class="form-control" />
+                <span asp-validation-for="Provider.providerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Provider.providerWebsite" class="control-label"></label>
+                <input asp-for="Provider.providerWebsite" class="form-control" />
+                <span asp-validation-for="Provider.providerWebsite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Provider.apiUrl" class="control-label"></label>
+                <input asp-for="Provider.apiUrl" class="form-control" />
+                <span asp-validation-for="Provider.apiUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Provider.apiKey" class="control-label"></label>
+                <input asp-for="Provider.apiKey" class="form-control" />
+                <span asp-validation-for="Provider.apiKey" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,19 @@
+﻿@page
+@model Crypton.Pages.Variations.DetailsModel
+
+<div>
+    <h4>Variation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Variation.variationType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Variation.variationType)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Variation.variationID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

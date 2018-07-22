@@ -1,0 +1,85 @@
+﻿@page
+@model Crypton.Pages.Currencies.CreateModel
+
+<h4>Currency</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Currency.providerCurrencyID" class="control-label"></label>
+                <input asp-for="Currency.providerCurrencyID" class="form-control" />
+                <span asp-validation-for="Currency.providerCurrencyID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.currencyName" class="control-label"></label>
+                <input asp-for="Currency.currencyName" class="form-control" />
+                <span asp-validation-for="Currency.currencyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.currencyCode" class="control-label"></label>
+                <input asp-for="Currency.currencyCode" class="form-control" />
+                <span asp-validation-for="Currency.currencyCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.description" class="control-label"></label>
+                <input asp-for="Currency.description" class="form-control" />
+                <span asp-validation-for="Currency.description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.totalVolume" class="control-label"></label>
+                <input asp-for="Currency.totalVolume" class="form-control" />
+                <span asp-validation-for="Currency.totalVolume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.currentVolume" class="control-label"></label>
+                <input asp-for="Currency.currentVolume" class="form-control" />
+                <span asp-validation-for="Currency.currentVolume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.currentMarketCap" class="control-label"></label>
+                <input asp-for="Currency.currentMarketCap" class="form-control" />
+                <span asp-validation-for="Currency.currentMarketCap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.officialWebsite" class="control-label"></label>
+                <input asp-for="Currency.officialWebsite" class="form-control" />
+                <span asp-validation-for="Currency.officialWebsite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.marketRank" class="control-label"></label>
+                <input asp-for="Currency.marketRank" class="form-control" />
+                <span asp-validation-for="Currency.marketRank" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.lastUpdated" class="control-label"></label>
+                <input asp-for="Currency.lastUpdated" class="form-control" />
+                <span asp-validation-for="Currency.lastUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Currency.isEnabled" /> @Html.DisplayNameFor(model => model.isEnabled))
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.logoPath" class="control-label"></label>
+                <input asp-for="Currency.logoPath" class="form-control" />
+                <span asp-validation-for="Currency.logoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,60 @@
+﻿@page
+@model Crypton.Pages.Prices.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].priceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].priceUSD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].priceEuro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].priceBTC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].currency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyPrice[0].provider)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CurrencyPrice) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.priceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priceUSD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priceEuro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priceBTC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currency.currencyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provider.apiUrl)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.currencyPriceID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.currencyPriceID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.currencyPriceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

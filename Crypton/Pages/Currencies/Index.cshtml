@@ -1,0 +1,96 @@
+﻿@page
+@model Crypton.Pages.Currencies.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].providerCurrencyID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].currencyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].currencyCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].totalVolume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].currentVolume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].currentMarketCap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].officialWebsite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].marketRank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].lastUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].isEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].logoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Currency) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.providerCurrencyID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currencyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currencyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currentVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currentMarketCap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.officialWebsite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.marketRank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isEnabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.logoPath)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.currencyID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.currencyID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.currencyID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

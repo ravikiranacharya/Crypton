@@ -1,0 +1,54 @@
+﻿@page
+@model Crypton.Pages.Logs.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Log[0].status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Log[0].description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Log[0].logDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Log[0].alert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Log[0].alertType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Log) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.logDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alert.alertID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alertType.alertType)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.logID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.logID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.logID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

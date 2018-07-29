@@ -1,0 +1,52 @@
+﻿@page
+@model Crypton.Pages.Global.CreateModel
+
+<h4>GlobalData</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GlobalData.activeCurrencies" class="control-label"></label>
+                <input asp-for="GlobalData.activeCurrencies" class="form-control" />
+                <span asp-validation-for="GlobalData.activeCurrencies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlobalData.activeMarkets" class="control-label"></label>
+                <input asp-for="GlobalData.activeMarkets" class="form-control" />
+                <span asp-validation-for="GlobalData.activeMarkets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlobalData.bitcoinDominance" class="control-label"></label>
+                <input asp-for="GlobalData.bitcoinDominance" class="form-control" />
+                <span asp-validation-for="GlobalData.bitcoinDominance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlobalData.totalMarketCap" class="control-label"></label>
+                <input asp-for="GlobalData.totalMarketCap" class="form-control" />
+                <span asp-validation-for="GlobalData.totalMarketCap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlobalData.lastUpdated" class="control-label"></label>
+                <input asp-for="GlobalData.lastUpdated" class="form-control" />
+                <span asp-validation-for="GlobalData.lastUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GlobalData.providerId" class="control-label"></label>
+                <select asp-for="GlobalData.providerId" class ="form-control" asp-items="ViewBag.providerId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -49,5 +49,7 @@ namespace Crypton.Data
 
         public DbSet<Crypton.Models.AlertViewModels.Alert> Alert { get; set; }
 
+        public DbSet<Crypton.Models.CurrencyViewModels.GlobalData> GlobalData { get; set; }
+
     }
 }

@@ -12,56 +12,56 @@ namespace Crypton.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Currencies1Controller : ControllerBase
+    public class GlobalDatasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public Currencies1Controller(ApplicationDbContext context)
+        public GlobalDatasController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Currencies1
+        // GET: api/GlobalDatas
         [HttpGet]
-        public IEnumerable<Currency> GetCurrency()
+        public IEnumerable<GlobalData> GetGlobalData()
         {
-            return _context.Currency;
+            return _context.GlobalData;
         }
 
-        // GET: api/Currencies1/5
+        // GET: api/GlobalDatas/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCurrency([FromRoute] int id)
+        public async Task<IActionResult> GetGlobalData([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var currency = await _context.Currency.FindAsync(id);
+            var globalData = await _context.GlobalData.FindAsync(id);
 
-            if (currency == null)
+            if (globalData == null)
             {
                 return NotFound();
             }
 
-            return Ok(currency);
+            return Ok(globalData);
         }
 
-        // PUT: api/Currencies1/5
+        // PUT: api/GlobalDatas/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurrency([FromRoute] int id, [FromBody] Currency currency)
+        public async Task<IActionResult> PutGlobalData([FromRoute] int id, [FromBody] GlobalData globalData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != currency.currencyID)
+            if (id != globalData.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(currency).State = EntityState.Modified;
+            _context.Entry(globalData).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +69,7 @@ namespace Crypton.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CurrencyExists(id))
+                if (!GlobalDataExists(id))
                 {
                     return NotFound();
                 }
@@ -82,45 +82,45 @@ namespace Crypton.Controllers
             return NoContent();
         }
 
-        // POST: api/Currencies1
+        // POST: api/GlobalDatas
         [HttpPost]
-        public async Task<IActionResult> PostCurrency([FromBody] Currency currency)
+        public async Task<IActionResult> PostGlobalData([FromBody] GlobalData globalData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Currency.Add(currency);
+            _context.GlobalData.Add(globalData);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCurrency", new { id = currency.currencyID }, currency);
+            return CreatedAtAction("GetGlobalData", new { id = globalData.id }, globalData);
         }
 
-        // DELETE: api/Currencies1/5
+        // DELETE: api/GlobalDatas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCurrency([FromRoute] int id)
+        public async Task<IActionResult> DeleteGlobalData([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var currency = await _context.Currency.FindAsync(id);
-            if (currency == null)
+            var globalData = await _context.GlobalData.FindAsync(id);
+            if (globalData == null)
             {
                 return NotFound();
             }
 
-            _context.Currency.Remove(currency);
+            _context.GlobalData.Remove(globalData);
             await _context.SaveChangesAsync();
 
-            return Ok(currency);
+            return Ok(globalData);
         }
 
-        private bool CurrencyExists(int id)
+        private bool GlobalDataExists(int id)
         {
-            return _context.Currency.Any(e => e.currencyID == id);
+            return _context.GlobalData.Any(e => e.id == id);
         }
     }
 }

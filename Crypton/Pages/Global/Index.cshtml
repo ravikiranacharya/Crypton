@@ -1,0 +1,60 @@
+﻿@page
+@model Crypton.Pages.Global.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].activeCurrencies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].activeMarkets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].bitcoinDominance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].totalMarketCap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].lastUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalData[0].provider)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.GlobalData) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.activeCurrencies)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.activeMarkets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bitcoinDominance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalMarketCap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provider.apiUrl)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

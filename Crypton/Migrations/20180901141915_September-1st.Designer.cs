@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crypton.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180715155729_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20180901141915_September-1st")]
+    partial class September1st
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,8 @@ namespace Crypton.Migrations
 
                     b.Property<DateTime>("createdOn");
 
-                    b.Property<DateTime>("fulfilledOn");
+                    b.Property<DateTime>("fulfilledOn")
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("isFulfilled");
 
@@ -58,7 +59,8 @@ namespace Crypton.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("alertType")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("isEnabled");
 
@@ -76,11 +78,14 @@ namespace Crypton.Migrations
 
                     b.Property<int>("alertTypeID");
 
-                    b.Property<string>("description");
+                    b.Property<string>("description")
+                        .HasColumnType("varchar(250)");
 
-                    b.Property<DateTime>("logDate");
+                    b.Property<DateTime>("logDate")
+                        .HasColumnType("datetime");
 
-                    b.Property<string>("status");
+                    b.Property<string>("status")
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("logID");
 
@@ -148,22 +153,35 @@ namespace Crypton.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("currencyCode")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("currencyName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<double>("currentMarketCap");
 
                     b.Property<double>("currentVolume");
 
-                    b.Property<string>("descritpion");
+                    b.Property<string>("description")
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<bool>("isEnabled");
 
                     b.Property<DateTime>("lastUpdated");
 
+                    b.Property<string>("logoPath")
+                        .HasColumnType("varchar(50)");
+
                     b.Property<int>("marketRank");
 
-                    b.Property<string>("officialWebsite");
+                    b.Property<string>("officialWebsite")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("providerCurrencyID")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
 
                     b.Property<double>("totalVolume");
 
@@ -172,23 +190,55 @@ namespace Crypton.Migrations
                     b.ToTable("Currency");
                 });
 
+            modelBuilder.Entity("Crypton.Models.CurrencyViewModels.GlobalData", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("activeCurrencies");
+
+                    b.Property<int>("activeMarkets");
+
+                    b.Property<decimal>("bitcoinDominance")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("numeric(18,4)");
+
+                    b.Property<DateTime>("lastUpdated");
+
+                    b.Property<int>("providerId");
+
+                    b.Property<decimal>("totalMarketCap")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("numeric(18,4)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("providerId");
+
+                    b.ToTable("GlobalData");
+                });
+
             modelBuilder.Entity("Crypton.Models.CurrencyViewModels.Provider", b =>
                 {
                     b.Property<int>("providerID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("apiKey");
+                    b.Property<string>("apiKey")
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("apiUrl")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("isEnabled");
 
                     b.Property<string>("providerName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("providerWebsite")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("providerID");
 
@@ -200,7 +250,8 @@ namespace Crypton.Migrations
                     b.Property<int>("conversionID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("conversionDate");
+                    b.Property<DateTime>("conversionDate")
+                        .HasColumnType("datetime");
 
                     b.Property<double>("conversionRate");
 
@@ -228,7 +279,8 @@ namespace Crypton.Migrations
 
                     b.Property<double>("priceBTC");
 
-                    b.Property<DateTime>("priceDate");
+                    b.Property<DateTime>("priceDate")
+                        .HasColumnType("datetime");
 
                     b.Property<double>("priceEuro");
 
@@ -251,7 +303,8 @@ namespace Crypton.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("variationType")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("variationID");
 
@@ -394,6 +447,14 @@ namespace Crypton.Migrations
                     b.HasOne("Crypton.Models.AlertViewModels.AlertType", "alertType")
                         .WithMany()
                         .HasForeignKey("alertTypeID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Crypton.Models.CurrencyViewModels.GlobalData", b =>
+                {
+                    b.HasOne("Crypton.Models.CurrencyViewModels.Provider", "provider")
+                        .WithMany()
+                        .HasForeignKey("providerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

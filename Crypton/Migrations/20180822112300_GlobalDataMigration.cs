@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Crypton.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class GlobalDataMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace Crypton.Migrations
                 {
                     alertTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    alertType = table.Column<string>(nullable: false),
+                    alertType = table.Column<string>(type: "varchar(50)", nullable: false),
                     isEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -67,15 +67,18 @@ namespace Crypton.Migrations
                 {
                     currencyID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    currencyName = table.Column<string>(nullable: false),
-                    currencyCode = table.Column<string>(nullable: false),
-                    descritpion = table.Column<string>(nullable: true),
+                    providerCurrencyID = table.Column<string>(type: "varchar(10)", nullable: false),
+                    currencyName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    currencyCode = table.Column<string>(type: "varchar(10)", nullable: false),
+                    description = table.Column<string>(type: "varchar(250)", nullable: true),
                     totalVolume = table.Column<double>(nullable: false),
                     currentVolume = table.Column<double>(nullable: false),
                     currentMarketCap = table.Column<double>(nullable: false),
-                    officialWebsite = table.Column<string>(nullable: true),
+                    officialWebsite = table.Column<string>(type: "varchar(50)", nullable: true),
                     marketRank = table.Column<int>(nullable: false),
-                    lastUpdated = table.Column<DateTime>(nullable: false)
+                    lastUpdated = table.Column<DateTime>(nullable: false),
+                    isEnabled = table.Column<bool>(nullable: false),
+                    logoPath = table.Column<string>(type: "varchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,10 +91,10 @@ namespace Crypton.Migrations
                 {
                     providerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    providerName = table.Column<string>(nullable: false),
-                    providerWebsite = table.Column<string>(nullable: false),
-                    apiUrl = table.Column<string>(nullable: false),
-                    apiKey = table.Column<string>(nullable: true),
+                    providerName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    providerWebsite = table.Column<string>(type: "varchar(50)", nullable: false),
+                    apiUrl = table.Column<string>(type: "varchar(50)", nullable: false),
+                    apiKey = table.Column<string>(type: "varchar(250)", nullable: true),
                     isEnabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -105,7 +108,7 @@ namespace Crypton.Migrations
                 {
                     variationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    variationType = table.Column<string>(nullable: false)
+                    variationType = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,7 +230,7 @@ namespace Crypton.Migrations
                     sourceCurrencyID = table.Column<int>(nullable: false),
                     targetCurrencyID = table.Column<int>(nullable: false),
                     conversionRate = table.Column<double>(nullable: false),
-                    conversionDate = table.Column<DateTime>(nullable: false)
+                    conversionDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -254,7 +257,7 @@ namespace Crypton.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     currencyID = table.Column<int>(nullable: false),
                     providerID = table.Column<int>(nullable: false),
-                    priceDate = table.Column<DateTime>(nullable: false),
+                    priceDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     priceUSD = table.Column<double>(nullable: false),
                     priceEuro = table.Column<double>(nullable: false),
                     priceBTC = table.Column<double>(nullable: false)
@@ -277,6 +280,30 @@ namespace Crypton.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GlobalData",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    activeCurrencies = table.Column<int>(nullable: false),
+                    activeMarkets = table.Column<int>(nullable: false),
+                    bitcoinDominance = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    totalMarketCap = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    lastUpdated = table.Column<DateTime>(nullable: false),
+                    providerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GlobalData", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_GlobalData_Provider_providerId",
+                        column: x => x.providerId,
+                        principalTable: "Provider",
+                        principalColumn: "providerID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Alert",
                 columns: table => new
                 {
@@ -286,7 +313,7 @@ namespace Crypton.Migrations
                     limit = table.Column<double>(nullable: false),
                     createdOn = table.Column<DateTime>(nullable: false),
                     isFulfilled = table.Column<bool>(nullable: false),
-                    fulfilledOn = table.Column<DateTime>(nullable: false),
+                    fulfilledOn = table.Column<DateTime>(type: "datetime", nullable: false),
                     conversionID = table.Column<int>(nullable: false),
                     variationID = table.Column<int>(nullable: false),
                     alertTypeID = table.Column<int>(nullable: false)
@@ -320,9 +347,9 @@ namespace Crypton.Migrations
                 {
                     logID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    status = table.Column<string>(nullable: true),
-                    description = table.Column<string>(nullable: true),
-                    logDate = table.Column<DateTime>(nullable: false),
+                    status = table.Column<string>(type: "varchar(50)", nullable: true),
+                    description = table.Column<string>(type: "varchar(250)", nullable: true),
+                    logDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     alertID = table.Column<int>(nullable: false),
                     alertTypeID = table.Column<int>(nullable: false)
                 },
@@ -418,6 +445,11 @@ namespace Crypton.Migrations
                 column: "providerID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GlobalData_providerId",
+                table: "GlobalData",
+                column: "providerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Log_alertID",
                 table: "Log",
                 column: "alertID");
@@ -447,6 +479,9 @@ namespace Crypton.Migrations
 
             migrationBuilder.DropTable(
                 name: "CurrencyPrice");
+
+            migrationBuilder.DropTable(
+                name: "GlobalData");
 
             migrationBuilder.DropTable(
                 name: "Log");

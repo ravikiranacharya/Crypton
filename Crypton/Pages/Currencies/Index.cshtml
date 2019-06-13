@@ -43,6 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Currency[0].logoPath)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency[0].provider)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -84,6 +87,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.logoPath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provider.apiUrl)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.currencyID">Edit</a> |

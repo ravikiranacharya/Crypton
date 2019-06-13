@@ -21,6 +21,7 @@ namespace Crypton.Pages.Currencies
 
         public IActionResult OnGet()
         {
+        ViewData["providerID"] = new SelectList(_context.Provider, "providerID", "apiUrl");
             return Page();
         }
 

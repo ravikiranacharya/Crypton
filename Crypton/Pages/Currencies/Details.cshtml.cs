@@ -28,7 +28,8 @@ namespace Crypton.Pages.Currencies
                 return NotFound();
             }
 
-            Currency = await _context.Currency.FirstOrDefaultAsync(m => m.currencyID == id);
+            Currency = await _context.Currency
+                .Include(c => c.provider).FirstOrDefaultAsync(m => m.currencyID == id);
 
             if (Currency == null)
             {

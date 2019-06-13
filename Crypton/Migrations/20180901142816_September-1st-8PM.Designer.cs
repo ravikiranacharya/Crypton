@@ -4,14 +4,16 @@ using Crypton.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Crypton.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180901142816_September-1st-8PM")]
+    partial class September1st8PM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,13 +183,13 @@ namespace Crypton.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(10)");
 
-                    b.Property<int>("providerID");
+                    b.Property<int>("providerId");
 
                     b.Property<double>("totalVolume");
 
                     b.HasKey("currencyID");
 
-                    b.HasIndex("providerID");
+                    b.HasIndex("providerId");
 
                     b.ToTable("Currency");
                 });
@@ -456,7 +458,7 @@ namespace Crypton.Migrations
                 {
                     b.HasOne("Crypton.Models.CurrencyViewModels.Provider", "provider")
                         .WithMany()
-                        .HasForeignKey("providerID")
+                        .HasForeignKey("providerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

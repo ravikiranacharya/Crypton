@@ -69,5 +69,14 @@ namespace Crypton.Models.CurrencyViewModels
         [Column(TypeName = "varchar(50)")]
         public string logoPath { get; set; }
         /* Local path to the currency's logo */
+
+        [Required]
+        [Display(Name = "Provider")]
+        public int providerID { get; set; }
+        /* Provider from whom the data is fetched */
+
+        [ForeignKey("providerID")]
+        public virtual Provider provider { get; set; }
+        /* Reference to the Provider model */
     }
 }

@@ -13,6 +13,8 @@ using Crypton.Models;
 using Crypton.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
+using Crypton.DataHelpers.CoinMarketCapHelpers;
+using Hangfire;
 
 namespace Crypton
 {
@@ -100,6 +102,12 @@ namespace Crypton
             {
                 c.SwaggerDoc("v1", new Info { Title = "Crypton API", Version = "v1" });
             });
+
+            // Add Hangfire services.  
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Add Elmah
+            //services.Configure<ElmahIoOptions>(Configuration.GetSection("ElmahIo"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,6 +123,22 @@ namespace Crypton
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            /*  HangFire 
+                Reference: http://docs.hangfire.io/en/latest/quick-start.html
+             */
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            /* Schedule all the jobs here */
+            RecurringJob.AddOrUpdate(() => new Schedule(app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<ApplicationDbContext>()).RefreshDataAsync(), Cron.Minutely);
+
+            ///* Elmah */
+            //app.UseElmahIo();
+
+
+            app.UseDeveloperExceptionPage();
+            app.UseBrowserLink();
+
 
             app.UseStaticFiles();
 

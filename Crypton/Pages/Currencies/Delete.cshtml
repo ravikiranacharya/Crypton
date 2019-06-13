@@ -78,6 +78,12 @@
         <dd>
             @Html.DisplayFor(model => model.Currency.logoPath)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency.provider)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Currency.provider.apiUrl)
+        </dd>
     </dl>
     
     <form method="post">

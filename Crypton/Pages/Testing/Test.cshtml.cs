@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Crypton.DataHelpers;
+using Crypton.DataHelpers.CoinMarketCapHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -23,14 +24,9 @@ namespace Crypton.Pages.Testing
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            
-            //List<Provider> providers = new List<Provider>();
-            var provider = _context.Provider.First();
+            Schedule schedule = new Schedule(_context);
+            await schedule.RefreshDataAsync();
 
-            Listing listing = new Listing(_context);
-            listing.provider = provider;
-
-            await listing.UpdateCoinListAsync();
             return RedirectToPage("./Test");
         }
     }

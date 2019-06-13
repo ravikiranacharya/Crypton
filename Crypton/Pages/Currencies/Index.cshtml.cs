@@ -23,7 +23,8 @@ namespace Crypton.Pages.Currencies
 
         public async Task OnGetAsync()
         {
-            Currency = await _context.Currency.ToListAsync();
+            Currency = await _context.Currency
+                .Include(c => c.provider).ToListAsync();
         }
     }
 }
